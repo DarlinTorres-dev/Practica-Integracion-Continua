@@ -1,4 +1,4 @@
-name: IntegraciÃ³n Continua - Hola Mundo
+name: Integracion Continua con Alerta
 
 on:
   push:
@@ -6,25 +6,21 @@ on:
       - main
 
 jobs:
-  hola-mundo-ci:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clonar repositorio
+      - name: Checkout repositorio
         uses: actions/checkout@v4
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
 
       - name: Ejecutar Hola Mundo
         run: node index.js
 
-      - name: Enviar notificaciÃ³n a ntfy
+      - name: Enviar alerta ntfy
         run: |
-          curl -X POST \
-          -H "Title: íº€ Push a main" \
-          -H "Tags: github,ci,devops,itla" \
-          -H "Priority: 3" \
-          -d "Se realizÃ³ un push al branch main y el workflow se
+          curl -d "Push detectado en main ðŸš€" https://ntfy.sh/devops-itla
